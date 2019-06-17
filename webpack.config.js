@@ -1,5 +1,6 @@
 const path = require( 'path' )
 const htmlWebpackPlugin = require( 'html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: path.join(__dirname, './src/main.js'),
@@ -12,6 +13,7 @@ module.exports = {
             template: path.join(__dirname, './index.html'),
             filename: 'index.html'
         }),
+        new VueLoaderPlugin()
     ],
     module :{
         rules: [
@@ -19,7 +21,8 @@ module.exports = {
             {test: /\.less$/, use: ['style-loader','css-loader','less-loader']},
             {test: /\.(jpg|png|gif|jpeg|bmp)$/, use:'url-loader?limit=15000'},
             {test: /\.(ttf|svg|eot|woff|woff2)$/, use:'url-loader'},
-            {test: /\.js$/, use:'babel-loader', exclude: /node_modules/}
+            {test: /\.js$/, use:'babel-loader', exclude: /node_modules/}, 
+            {test: /\.vue$/,loader: 'vue-loader'}
         ]
     },
     resolve: {
