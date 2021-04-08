@@ -1,0 +1,75 @@
+/* base.css 提供了一个默认样式, 解决了不同浏览器标签默认样式差异的问题. 统一了开发样式 */
+
+/* ①让h标签不加粗, 开发用的是他的语义化 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+}
+
+/* ②让li, p, h标签默认的空格去除 */
+* {
+    margin: 0;
+    padding: 0;
+    /* 让页面所有的盒子都是CSS3的盒子模型, 正常去测量页面大小, 不要再担心盒子撑大问题 */
+    box-sizing: border-box;
+}
+
+/* ③让em, i不倾斜 */
+em,
+i {
+    font-style: normal;
+}
+
+/* ④让a取消下划线 */
+a {
+    text-decoration: none;
+}
+
+/* ⑤让li标签取消小圆点 */
+li {
+    list-style: none;
+}
+
+/* ⑥取消input  textarea的轮廓线 */
+input,
+textarea {
+    outline: none;
+}
+
+/* ⑦禁止拖拽文本域 */
+textarea {
+    resize: none;
+}
+
+/* ⑧让图片和文字居中对齐   能解决图片底部自带缝隙的问题 */
+/* 这个代码只能加载行内块元素上 */
+img {
+    vertical-align: middle;
+}
+
+
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.el-breadcrumb {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.el-card {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+
+body{
+    min-width: 1000px;
+}
