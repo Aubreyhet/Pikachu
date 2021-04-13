@@ -1,6 +1,6 @@
 <template>
-  <div id="userslist">
-    
+  <div id="setting">
+    <h1>设置信息</h1>
   </div>
 </template>
 
@@ -24,7 +24,9 @@ export default {
 </script>
 
 <style lang= 'less' scoped>
-#userslist{
-  
+#setting{
+  flex: 1;
+  height: 100%;
+  background: chartreuse;
 }
 </style>

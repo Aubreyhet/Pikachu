@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/home/HelloWorld.vue'
+
 
 export default {
   name: 'App',
@@ -14,4 +14,11 @@ export default {
 </script>
 
 <style>
+#app{
+  position:relative;
+  left: 0;
+  top: 0;
+  background: url("./assets/images/bg_login1.jpeg") no-repeat;
+  background-size: 100% 100%;
+}
 </style>

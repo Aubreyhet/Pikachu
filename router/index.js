@@ -13,6 +13,7 @@ import Signup from '../src/components/index/signup.vue'
 import Home from '../src/components/home.vue'
 //导入home下的其他子组件
 import Hello from '../src/components/home/HelloWorld.vue'
+import Setting from '../src/components/home/setting.vue'
 
 //配置路由
 Vue.use(VueRouter)
@@ -42,6 +43,10 @@ const router = new VueRouter({
                 {
                     path: '/hello',
                     component: Hello
+                },
+                {
+                    path: '/setting',
+                    component: Setting
                 }
             ]
         }

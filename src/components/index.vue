@@ -21,8 +21,6 @@ export default {
   position:absolute;
   left: 0;
   top: 0;
-  height: 100%;
-  background-color: #2b4b6b;
   background: url("../assets/images/bg_login.jpeg") no-repeat;
   background-size: 100% 100%;
 }

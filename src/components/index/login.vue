@@ -41,8 +41,7 @@ export default {
         },
       loginForm: {
         uName: '',
-        password: '',
-        testcode: '',
+        password: ''
       },
       LoginFormRules: {
         uName: [
@@ -68,10 +67,26 @@ export default {
   },
   methods: {
     Signup(){
-        this.$router.replace('/signup')
+        this.$router.push('/signup')
     },
     login() {
-        this.$router.push('/home')     
+      console.log(this.loginForm)
+      this.$refs.loginFormRef.validate(async (valid) => {
+        console.log(this.loginForm)
+        console.log(valid)
+        if (!valid) return
+        console.log(this.loginForm)
+        await this.$http
+          .post('/apis/userlogin', this.loginForm)
+          .then((data) => {
+            if (data.data.code !== 201) {
+              this.$message.error(data.data.msg)
+            }
+            this.$message.success(data.data.msg)
+            this.$refs.loginFormRef.resetFields()
+          })
+      })
+        // this.$router.push('/home')     
     }
     //账号密码携带验证码登录
     // login() {

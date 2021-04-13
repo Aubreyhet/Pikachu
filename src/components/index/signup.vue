@@ -11,6 +11,7 @@
     <el-form-item prop="uName">
         <el-input 
         id="username" 
+        @blur="compareName"
         v-model="SignupForm.uName" 
         prefix-icon="el-icon-user" 
         placeholder="请输入用户名">
@@ -67,43 +68,6 @@
 /* eslint-disable */
 export default {
   data() {
-
-
-
-// var validatePass = (rule, value, callback) => {
-//         if (value === '') {
-//           callback(new Error('请输入密码'));
-//         } else {
-//           if (this.ruleForm.checkPass !== '') {
-//             this.$refs.ruleForm.validateField('checkPass');
-//           }
-//           callback();
-//         }
-//       };
-//       var validatePass2 = (rule, value, callback) => {
-//         if (value === '') {
-//           callback(new Error('请再次输入密码'));
-//         } else if (value !== this.ruleForm.pass) {
-//           callback(new Error('两次输入密码不一致!'));
-//         } else {
-//           callback();
-//         }
-//       };
-//       return {
-//         ruleForm: {
-//           pass: '',
-//           checkPass: '',
-//           age: ''
-//         },
-//         rules: {
-//           pass: [
-//             { validator: validatePass, trigger: 'blur' }
-//           ],
-//           checkPass: [
-//             { validator: validatePass2, trigger: 'blur' }
-//           ]
-
-
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
@@ -132,7 +96,7 @@ export default {
       },
       SignupFormRules: {
         uName: [
-          { required: true, message: '请用用户名/手机号', trigger: 'blur' },
+          { required: true, message: '请用用户名/手机号', trigger: 'blur'},
           {
             min: 2,
             max: 10,
@@ -143,7 +107,7 @@ export default {
 
 
         email:[
-            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+            { required: true, message: '请输入邮箱地址', trigger: 'blur'},
             { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
         ],
 
@@ -164,7 +128,6 @@ export default {
         this.$router.replace('/login')
     },
 
-
     Signup() {
       console.log(this.SignupForm)
       this.$refs.SignupFormRef.validate(async (valid) => {
@@ -173,7 +136,7 @@ export default {
         if (!valid) return
         console.log(this.SignupForm)
         await this.$http
-          .post('/apis/signup/add', this.SignupForm)
+          .post('/apis/userSignUp', this.SignupForm)
           .then((data) => {
             if (data.data.code !== 201) {
               this.$message.error(data.data.msg)
@@ -184,59 +147,21 @@ export default {
       })
     },
 
-
-
-    // Signup(formName) {
-    //     this.$refs.SignupFormRef.validate( async (valid) => {
-    //       if (!valid) return
-    //           this.$router.push('/home')
-
-    //     await this.$http
-    //       .post('/apis/signup/add', this.SignupForm)
-    //       .then((data) => {
-    //         let res = data.data
-    //         if (res.code == 400) {
-    //         } else if (res.code == 200) {
-    //           this.$message.success(res.msg)
-    //           this.$router.push('/home')
-    //         } else {
-    //           this.$message.error(res.msg)
-    //         }
-    //       })
-    //     });
-    //   },
-    //账号密码携带验证码登录
-    // Signup() {
-    // //   this.loginBtn.disable = false
-      
-    //   this.$refs.loginFormRef.validate({
-    //     this.$router.replace('/login')
-    //   })
-
-        
-
-              
-        // async (valid) => {
-        // if (!valid) return
-        //       this.loginBtn.disable = false;
-        //       this.$router.push('/home')
-
-        // await this.$http
-        //   .post('/apis/users/login', this.loginForm)
-        //   .then((data) => {
-        //     let res = data.data
-        //     if (res.code == 400) {
-        //     } else if (res.code == 200 && res.msg !== '验证码错误') {
-        //       this.$message.success(res.msg)
-        //       window.sessionStorage.setItem('token', res.token)
-        //       this.$router.push('/home')
-        //     } else {
-        //       this.$message.error(res.msg)
-        //     }
-        //   })
-      // }
-//       )
-//     },
+    //输入用户名提示用户改用户名是否被占用 发起对服务器的请求
+    compareName(){
+      var nameLen = this.SignupForm.uName.length;
+      if(nameLen >= 2 && nameLen <= 10 && nameLen != ''){
+        this.$http
+          .post('/apis/findUserName', this.SignupForm)
+          .then((data) => {
+            if (data.data.code !== 201) {
+              this.$message.error(data.data.msg)
+            }else{
+              this.$message.success(data.data.msg)
+            }
+          })
+      }
+    }
   },
 }
 </script>
